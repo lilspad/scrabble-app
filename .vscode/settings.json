@@ -1,0 +1,5 @@
+{
+    "files.autoSave": "afterDelay",
+    "scm.alwaysShowActions": true,
+    "scm.alwaysShowRepositories": false
+}
