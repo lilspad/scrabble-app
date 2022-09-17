@@ -1,5 +1,6 @@
 import React from 'react';
-import Cell from './cell.js'
+import Cell from './cell.js';
+import cellTypes from './cellTypes';
 
 const boardCells = [
     [4,0,0,1,0,0,0,4,0,0,0,1,0,0,4],
@@ -22,7 +23,12 @@ const boardCells = [
 class Board extends React.Component {
 
     createBoard() {
-        
+        const board = boardCells.map(row => {
+            row.map(col => {
+                Cell(cellTypes[col])
+            })
+        })
+        return board;
     }
 
     render() {
