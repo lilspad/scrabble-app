@@ -1,5 +1,5 @@
 import React from 'react';
-import createBoard from './board.js';
+import Board from './board.js';
 
 
 
@@ -9,7 +9,7 @@ class Game extends React.Component {
         return (
         <div>
         <div id="status">{status}</div>
-        {createBoard()}
+        <div><Board /></div>
         </div>)
     }
 }
