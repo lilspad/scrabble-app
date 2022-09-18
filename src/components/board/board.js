@@ -1,32 +1,5 @@
 import React from 'react';
-import Cell from './cell.js';
-
-const cellTypes={
-    0: {
-        "display": "",
-        color: "#E3EAC8"
-    },
-    1: {
-        "display": "DL",
-        color: "#7dbdab"
-    },
-    2: {
-        "display": "TL",
-        color: "#997da1"
-    },
-    3: {
-        "display": "DW",
-        color: "#c9823e"
-    },
-    4: {
-        "display": "TW",
-        color: "#b85039"
-    },
-    5: {
-        "display": "✾",
-        color: "#f0dd51"
-    }
-};
+import Row from './row.js'
 
 
 const row1 = [4,0,0,0,1,0,0,4,0,0,1,0,0,0,4];
@@ -43,22 +16,11 @@ const recycledPatterns = [row7, row6, row5, row4, row3, row2, row1]
 const boardMatrix = rowPatterns1.concat(recycledPatterns)
 
 class Board extends React.Component {
-    createRow(row) {
-        
-        const boardRow = row.map((num, index) => {
-            const display = cellTypes[num].display;
-            const color = cellTypes[num].color;
-            return (
-                <Cell display={display} color={color}/>
-            )
-        })
-        return boardRow;
-    }
 
     createBoard(matrix) {
         const boardPattern = matrix.map((pattern, index) => {
             return (
-            <tr>{this.createRow(pattern)}</tr>
+            <tr><Row row={pattern}/></tr>
         )
         })
         return boardPattern;
@@ -67,9 +29,13 @@ class Board extends React.Component {
     render() {
         return (
             <div>
-            <table style={{marginLeft: "75px"}}>
+            <table style={{
+                marginLeft: "50px", 
+                borderSpacing: "0px", 
+                padding: "1.5px", 
+                border: "4.5px solid #c9823e"}}>
             {this.createBoard(boardMatrix)}
-            </table>         
+            </table>        
             </div>
         )
     }

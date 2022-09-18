@@ -5,6 +5,7 @@ export default function Cell(props) {
                 height: "40px",
                 textAlign: "center",
                 verticalAlign: "middle",
+                border: "white solid 1.5px",
                 backgroundColor: props.color
             };
         return (
