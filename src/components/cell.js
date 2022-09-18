@@ -6,7 +6,7 @@ export default function Cell(props) {
                 textAlign: "center",
                 verticalAlign: "middle",
                 backgroundColor: props.color
-            }
+            };
         return (
             <td className="cell" style={cellStyle}>{props.display}</td>
         )

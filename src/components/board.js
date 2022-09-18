@@ -56,7 +56,7 @@ class Board extends React.Component {
     }
 
     createBoard(matrix) {
-const boardPattern = matrix.map((pattern, index) => {
+        const boardPattern = matrix.map((pattern, index) => {
             return (
             <tr>{this.createRow(pattern)}</tr>
         )
