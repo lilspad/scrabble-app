@@ -5,10 +5,10 @@ import "./style.css"
 
 class App extends React.Component {
     render() {
-        const status = "Rendering ok from App";
+        const title = "Scrabble time!";
         return (
             <div>
-            <div id="status">{status}</div>
+            <h2 id="status">{title}</h2>
             <div id="game"><Game /></div>         
             </div>
         );
