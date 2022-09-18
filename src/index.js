@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Game from './components/game.js';
+import "./style.css"
 
 class App extends React.Component {
     render() {
