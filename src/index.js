@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import Game from './components/game.js';
 import "./style.css"
 
+document.body.style = 'background: #ffdfab';
 class App extends React.Component {
     render() {
         const title = "Scrabble time!";
