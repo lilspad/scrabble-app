@@ -8,8 +8,8 @@ class App extends React.Component {
         const title = "Scrabble time!";
         return (
             <div>
-            <h2 id="status">{title}</h2>
-            <div id="game"><Game /></div>         
+            <h2 className="status">{title}</h2>
+            <div className="game"><Game /></div>         
             </div>
         );
     }
