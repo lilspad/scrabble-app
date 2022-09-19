@@ -1,6 +1,14 @@
 import React from 'react';
 import Row from './row.js'
 
+const boardStyle = {
+    width: "687px",
+    margin: "20px", 
+    borderSpacing: "0px", 
+    padding: "1.5px", 
+    border: "4.5px solid #c9823e"
+}
+
 const row1 = [4,0,0,0,1,0,0,4,0,0,1,0,0,0,4];
 const row2 = [0,3,0,0,0,2,0,0,0,2,0,0,0,3,0];
 const row3 = [0,0,3,0,0,0,1,0,1,0,0,0,3,0,0];
@@ -28,11 +36,7 @@ class Board extends React.Component {
     render() {
         return (
             <div>
-            <table style={{
-                marginLeft: "50px", 
-                borderSpacing: "0px", 
-                padding: "1.5px", 
-                border: "4.5px solid #c9823e"}}>
+            <table style={boardStyle}>
             {this.createBoard(boardMatrix)}
             </table>        
             </div>
