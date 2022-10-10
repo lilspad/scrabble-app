@@ -12,7 +12,7 @@ const cellTypes={
     },
     2: {
         "display": "TL",
-        color: "#997da1"
+        color: "#997da1"    
     },
     3: {
         "display": "DW",

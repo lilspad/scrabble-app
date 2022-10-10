@@ -19,7 +19,7 @@ const divStyle = {
     padding: "10px",
     marginTop: "20px",
     textAlign: "center",
-    border: "3px solid #c9823e"
+    border: "3px solid #5c7551"
 }
 class Bag extends React.Component {
     

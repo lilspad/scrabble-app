@@ -6,7 +6,7 @@ const boardStyle = {
     margin: "20px", 
     borderSpacing: "0px", 
     padding: "1.5px", 
-    border: "4.5px solid #c9823e"
+    border: "4.5px solid #5c7551"
 }
 
 const row1 = [4,0,0,0,1,0,0,4,0,0,1,0,0,0,4];

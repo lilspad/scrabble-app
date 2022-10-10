@@ -4,13 +4,13 @@ const rackStyle = {
     margin: "20px",
     padding: "5px",
     backgroundColor: "#E3EAC8",
-    border: "3px solid #c9823e",
+    border: "3px solid #5c7551",
 }
 
 const testTileStyle = {
     width: "60px",
     height: "60px",
-    backgroundColor: "lightgray"
+    backgroundColor: "white"
 }
 
 function Rack() {
