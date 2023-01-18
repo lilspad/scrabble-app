@@ -26,7 +26,7 @@ const letters = {
   X: { points: 8, amount: 1 },
   Y: { points: 4, amount: 2 },
   Z: { points: 10, amount: 1 },
-  "bl": { points: 0, amount: 2}
+  "": { points: null, amount: 2}
   
 } 
 

@@ -1,0 +1,27 @@
+* {
+    font-family: Optima;
+    border-radius: 5px;
+    
+}
+
+body {
+    background-color: #5c7551;
+}
+
+.div {
+    display: flex;
+    width: 80%;
+    margin: auto;
+}
+
+h2 {
+    color: white;
+    font-weight: 100;
+    font-size: 60px;
+    margin: 0;
+}
+
+h3 {
+    color: white;
+    font-weight: 100;
+}

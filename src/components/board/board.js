@@ -2,11 +2,12 @@ import React from 'react';
 import Row from './row.js'
 
 const boardStyle = {
-    width: "687px",
-    margin: "20px", 
-    borderSpacing: "0px", 
+    width: "fit-content", 
+    borderSpacing: "0px",
     padding: "1.5px", 
-    border: "4.5px solid #5c7551"
+    border: "3px solid black",
+    backgroundColor: "#b85039",
+    margin: "1%"
 }
 
 const row1 = [4,0,0,0,1,0,0,4,0,0,1,0,0,0,4];
