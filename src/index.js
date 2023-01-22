@@ -3,15 +3,16 @@ import ReactDOM from 'react-dom/client';
 import Game from './components/game.js';
 import "./style.css"
 
-//document.body.style = 'background: #ffdfab';
+document.body.style = 'background: #5c7551';
+
 class App extends React.Component {
     render() {
-        const title = "Scrabble time!";
+        const title = "Scrabble";
         return (
-            <body>
-            <h2 className="status">{title}</h2>
+            <div>
+            <h1 className="status">{title}</h1>
             <div><Game /></div>         
-            </body>
+            </div>
         );
     }
 }
