@@ -1,54 +1,55 @@
 import React from 'react';
 import letters from './letters.js'
 
-const divStyle = {
-    display: "inline-block",
-    textAlign: "centre",
-    verticalAlign: "middle",
-    lineHeight: "30px",
-    margin: "1%",
-    color: "white"
+class Tile extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      letter: this.props.letter,
+      points: 0,
+      amount: null
+    }
+  }
+
+  componentDidMount() {
+    this.statsID = setInterval(
+        () => this.updateStats(),
+        10
+      );
+  }
+
+  createTile() {
+    return (
+      <div className="tile">
+        {this.state.letter}
+        <div className="points">
+          {this.state.points}
+        </div>
+      </div>
+    );
+  }
+
+  updateStats() {
+    this.setState({
+      points: letters[this.state.letter].points,
+      amount: letters[this.state.letter].amount
+    })
+  }
+
+  render() {
+
+    return (
+      <div>
+      {this.createTile()}
+      <div className="amount">
+          {this.state.amount}
+      </div>
+      </div>
+    )
+  }
 }
 
-const tilesStyle = {
-    display: "flex",
-    flexDirection: "column-reverse",
-    justifyContent: "end",
-    alignItems: "center",
-    width: "30px",
-    height: "30px",
-    backgroundColor: "#faecc5",
-    border: "solid 5px #faecc5",
-    borderRadius: "10px",
-    boxShadow: "1px 2px 1px",
-    color: "black"
-}
 
-const pointsStyle = {
-    display: "block",
-    alignSelf: "end",
-    fontSize: "10px",
-    width: "10px",
-    height: "10px",
-    color: "black"
-}
+export default Tile;
 
 
-
-const tileStats = Object.keys(letters).map((key) => {
-  return <div style={divStyle}>
-            <div style={tilesStyle}>
-              {key}
-              <div style={pointsStyle}>
-                {letters[key].points}
-              </div>
-            </div> 
-            {letters[key].amount}
-          </div>
-})
-
-function Tiles() {
-  return tileStats;
-}
-
-export default Tiles;
