@@ -9,6 +9,6 @@ export default function Cell(props) {
                 backgroundColor: props.color
             };
         return (
-            <td className="cell" style={cellStyle}>{props.display}</td>
+            <td className="cell" style={cellStyle} key={props.index}>{props.display}</td>
         )
     }

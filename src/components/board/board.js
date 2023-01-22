@@ -28,7 +28,7 @@ class Board extends React.Component {
     createBoard(matrix) {
         const boardPattern = matrix.map((pattern, index) => {
             return (
-            <tr><Row row={pattern}/></tr>
+            <tbody key={index}><Row row={pattern}/></tbody>
         )
         })
         return boardPattern;

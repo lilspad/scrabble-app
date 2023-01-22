@@ -31,11 +31,11 @@ const cellTypes={
 class Row extends React.Component {
     createRow(row) {
         
-        const boardRow = row.map((num) => {
+        const boardRow = row.map((num, index) => {
             const display = cellTypes[num].display;
             const color = cellTypes[num].color;
             return (
-                <Cell display={display} color={color}/>
+                <Cell display={display} color={color} key={index}/>
             )
         })
         return boardRow;
