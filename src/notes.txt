@@ -1,9 +1,20 @@
 colours:
 
-background/sage: #E3EAC8
-border/dark sage: #5c7551
+background/dark sage: #5c7551
+
+empty cells/sage: #E3EAC8
 DL/turqoise: #7dbdab
 TL/purple: #997da1
 DW/orange: #c9823e
 TW/yellow: #f0dd51
 center/red: #b85039
+
+tile: #faecc5
+
+
+draggable:
+
+import Draggable from 'react-draggable'
+<Draggable onStart={} onStop={} bounds=".class" grid={[1, 1]} etc >
+    <Component />
+</Draggable>
