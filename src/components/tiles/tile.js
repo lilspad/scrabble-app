@@ -6,15 +6,15 @@ class Tile extends React.Component {
     super(props)
     this.state = {
       letter: this.props.letter,
-      points: 0,
-      amount: null
+      points: letters[this.props.letter].points,
+      amount: 0
     }
   }
 
   componentDidMount() {
     this.statsID = setInterval(
         () => this.updateStats(),
-        10
+        0
       );
   }
 
@@ -31,7 +31,6 @@ class Tile extends React.Component {
 
   updateStats() {
     this.setState({
-      points: letters[this.state.letter].points,
       amount: letters[this.state.letter].amount
     })
   }
