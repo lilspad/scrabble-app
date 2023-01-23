@@ -18,7 +18,8 @@ class Player extends React.Component {
             name: this.props.name,
             turn: this.props.turn,
             points: this.props.points,
-            tiles: this.props.tiles
+            tiles: this.props.tiles,
+            selectedTile: this.props.selectedTile
         }
     }
 
@@ -47,7 +48,7 @@ class Player extends React.Component {
         return (
             <div style={this.updatePlayerPage()}>
                 {this.isTurn()}
-                <Rack tiles={this.state.tiles} />
+                <Rack tiles={this.state.tiles} selectedTile={this.state.selectedTile}/>
             </div>
         )
 
@@ -71,11 +72,16 @@ class Game extends React.Component {
         let player1Tiles = [];
         let player2Tiles = [];
 
+        let selectedTile = {
+            tileKey: 'none',
+            isDown: true
+        };
+
         return (
             <div className="game">
                 <div className="div">
 
-                    <Board />
+                    <Board selectedTile={selectedTile}/>
 
                     <div className="stats">
 
@@ -92,13 +98,15 @@ class Game extends React.Component {
                             name={player1}
                             turn={player1Turn}
                             points={player1Score}
-                            tiles={player1Tiles} 
+                            tiles={player1Tiles}
+                            selectedTile={selectedTile} 
                         />
                         <Player 
                             name={player2}
                             turn={player2Turn}
                             points={player2Score}
-                            tiles={player2Tiles} 
+                            tiles={player2Tiles}
+                            selectedTile={selectedTile} 
                         />
                     </div>
                 </div>
