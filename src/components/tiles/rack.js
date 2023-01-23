@@ -13,6 +13,10 @@ const rackStyle = {
     margin: "auto"
 }
 
+let swapStyle = {
+    backgroundColor: 'gray'
+};
+
 let totalLetters = () => {
     let total = 0;
     Object.keys(letters).map((key) => {
@@ -21,20 +25,28 @@ let totalLetters = () => {
 return total;
 }
 
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 class Rack extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             numberOfTiles: 0,
-            tilesCleared: false,
-            currentTile: "",
-            tileDown: true
+            awaitingTile: false,
+            tilesClearing: false,
+            clearedOnce: false,
+            
         }
     }
 
+
     updateStats(letter) {
-        return letters[letter].amount -= 1;
+        if (this.state.tilesClearing) {
+            return letters[letter].amount += 1;
+        } else {
+            return letters[letter].amount -= 1;
+        }
     } 
 
     checkStats(letter) {
@@ -61,13 +73,42 @@ class Rack extends React.Component {
 
         console.log(this.checkStats(letter))
 
-        let key = letter + letters[letter].amount.toString();
+        if (letter === 'blank') {
+            let key = letter + letters[letter].amount.toString();
+            console.log(key);
+
+            this.updateStats(letter);
+
+            return (
+
+                <div className="tileCell rackCell"
+                    key={key} 
+                    onClick={() => {
+                        this.onSelect(key);
+                        wait(500).then(() => {
+                            key = this.blank();
+                            console.log("blank ready");
+                            this.props.selectedTile.tileKey = key;
+                            console.log('tile is ' + this.props.selectedTile.tileKey)
+                        });
+                        console.log('waiting for blank')
+                    }}
+                    >
+                    <Tile letter={letter}/>
+                </div>
+            )
+        }
+
+        let key = letter + letters[letter].points + ':' + letters[letter].amount.toString();
         console.log(key);
 
         this.updateStats(letter);
 
         return (
-            <div className="tileCell rackCell" key={key} onClick={() => this.onSelect(key)}>
+            <div className="tileCell rackCell"
+                key={key}
+                onClick={() => this.onSelect(key)}
+                >
                 <Tile letter={letter} />
             </div>
         )
@@ -75,16 +116,24 @@ class Rack extends React.Component {
     }
 
     updateRack(tiles) {
-        if (tiles.length < this.state.numberOfTiles && !this.state.tilesCleared) {
+        console.log('updating rack...')
+
+        if (tiles.length < this.state.numberOfTiles && !this.state.tilesClearing && !this.state.awaitingTile) {
             do {
                 tiles.push(this.drawTile());
             }
             while (tiles.length !== this.state.numberOfTiles);
-
-        } else if (tiles.length > this.state.numberOfTiles && !this.state.tilesCleared) {
-            let current = this.state.currentTile
-            console.log('selected ' + current);
             
+            if (!this.state.clearedOnce && tiles.length === 7) {
+                swapStyle = {};
+            }
+
+        } else if (tiles.length >= this.state.numberOfTiles && tiles.length > 1 && !this.state.tilesClearing && !this.state.awaitingTile) {
+            console.log('selected: ')
+
+            let current = this.props.selectedTile.tileKey
+            console.log(current)
+
             function findTile() {
                 for (let i = 0; i < tiles.length; i++) {
                     if (tiles[i].key === current) {
@@ -94,13 +143,44 @@ class Rack extends React.Component {
             }
 
             let index = tiles.indexOf(findTile())
-
-            if (index > -1) {
-                tiles.splice(index, 1);
+                if (index > -1) {
+                    tiles.splice(index, 1);
             }
 
-        } else if (this.state.tilesCleared) {
+        } else if (this.state.awaitingTile) {
+            console.log('returning: ')
+
+            let current = this.props.selectedTile.tileKey
+            console.log(current)
+
+            const tile = (
+                <div className="tileCell rackCell"
+                key={current}
+                onClick={() => this.onSelect(current)}
+                >
+                <Tile letter={this.props.selectedTile.tileKey[0]} />
+                </div>
+            )
+
+            tiles.push(tile);
+            console.log('ready');
+
+        } else if (this.state.tilesClearing) {
+            console.log('clearing...');
+
+            tiles.map((tile) => {
+                let tileKey = tile.key[0];
+                
+                return this.updateStats(tileKey);
+            })
+
             tiles = tiles.splice(0, tiles.length);
+
+            console.log('ready');
+
+            swapStyle = {
+                backgroundColor: 'gray'
+            }
         }
     }
     
@@ -111,11 +191,35 @@ class Rack extends React.Component {
 
         return (
             <div>
-            <p>{totalLetters()}</p>
+
                 <h3>Your tiles:</h3>
-                <div style={rackStyle}>{this.props.tiles}</div>
-                <button className="button" onClick={this.onDraw}>DRAW</button>
-                <button className="button" onClick={this.onClear}>CLEAR</button>
+
+                <div style={rackStyle} onClick={this.onReturn}>{this.props.tiles}</div>
+                <p>Selected tile: {this.props.selectedTile.tileKey[0]}</p>
+
+                <button 
+                    className="button" 
+                    onClick={this.onDraw}
+                >
+                        DRAW
+                </button>
+
+                <button 
+                    className="button" 
+                    onClick={() => {
+                        if (this.state.numberOfTiles === 7 && !this.state.clearedOnce) {
+                            this.onClear()
+                        } else if (this.state.clearedOnce) {
+                            return;
+                        } else {
+                            alert('Cannot swap right now - you can only swap if you have not made any moves this turn and your rack is full.')
+                        }
+                    }} 
+                    style={swapStyle}
+                >
+                        SWAP
+                </button>
+
             </div>
         )
     }
@@ -128,8 +232,9 @@ class Rack extends React.Component {
         }
 
         this.setState({
-                tilesCleared: false
-            })
+            awaitingTile: false,
+            tilesClearing: false
+        })
 
         if (this.state.numberOfTiles < 7 && totalLetters() >= 7) {
             this.setState({
@@ -140,24 +245,59 @@ class Rack extends React.Component {
                 numberOfTiles: totalLetters()
             })
         } else if (this.state.numberOfTiles === 7) {
-            alert("Your rack is full.")
+            alert("Your rack is full")
         }
 
     }
 
     onClear = () => {
-        this.setState({
-            numberOfTiles: 0,
-            tilesCleared: true
-        })
+
+        let confirm = window.confirm('Are you sure you want to swap? This will clear your rack and you will have to draw a new set. You can only do this once per game!')
+
+        if (confirm) {
+            console.log('clearing...')
+            this.setState({
+                numberOfTiles: 0,
+                tilesClearing: true,
+                clearedOnce: true
+            })
+        } else {
+            return;
+        }
+    }
+
+    blank = () => {
+        let newLetter = window.prompt('Enter letter: ', '')
+        console.log('input: ' + newLetter)
+
+        return newLetter;
     }
 
     onSelect = (tile) => {
+
+        if (!this.props.selectedTile.isDown && !this.state.awaitingTile) {
+            console.log('awaiting current')
+            this.setState({
+                awaitingTile: true
+            })
+            return;
+        } else if (tile === 'blank1' || tile === 'blank2') {
+            wait(1000).then(() => {
+                console.log('updating current')
+                tile = this.props.selectedTile.tileKey
+                console.log('ready')
+                return;
+            })
+            console.log('waiting...')
+        }
+
         this.setState({
             numberOfTiles: this.state.numberOfTiles - 1,
-            currentTile: tile,
-            tileDown: false
+            awaitingTile: false
         })
+
+        this.props.selectedTile.tileKey = tile;
+        this.props.selectedTile.isDown = false;
     }
 }
 
