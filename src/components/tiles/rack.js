@@ -13,11 +13,23 @@ const rackStyle = {
     margin: "auto"
 }
 
+let totalLetters = () => {
+    let total = 0;
+    Object.keys(letters).map((key) => {
+    return total += letters[key].amount;
+})
+return total;
+}
+
 class Rack extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            numberOfTiles: 0
+            numberOfTiles: 0,
+            tilesCleared: false,
+            currentTile: "",
+            tileDown: true
         }
     }
 
@@ -37,8 +49,17 @@ class Rack extends React.Component {
         let ran = Math.floor(Math.random() * 27);
         let letter = Object.keys(letters)[ran];
         
-        if (this.checkStats(letter)) {
-            console.log(this.checkStats(letter))
+        do {
+            ran = Math.floor(Math.random() * 27)
+            letter = Object.keys(letters)[ran];
+            console.log("drawing")
+            if (!this.checkStats(letter)) {
+                console.log(letter + " out")
+            }
+        }
+        while (!this.checkStats(letter));
+
+        console.log(this.checkStats(letter))
 
         let key = letter + letters[letter].amount.toString();
         console.log(key);
@@ -46,67 +67,97 @@ class Rack extends React.Component {
         this.updateStats(letter);
 
         return (
-            <div className="tileCell rackCell" key={key}>
+            <div className="tileCell rackCell" key={key} onClick={() => this.onSelect(key)}>
                 <Tile letter={letter} />
             </div>
         )
-        } else {
-            console.log("letter out")
+        
+    }
+
+    updateRack(tiles) {
+        if (tiles.length < this.state.numberOfTiles && !this.state.tilesCleared) {
             do {
-                ran = Math.floor(Math.random() * 27)
-                letter = Object.keys(letters)[ran];
-                console.log("checking new letter")
+                tiles.push(this.drawTile());
             }
-            while (!this.checkStats(letter));
+            while (tiles.length !== this.state.numberOfTiles);
 
-            console.log(this.checkStats(letter))
+        } else if (tiles.length > this.state.numberOfTiles && !this.state.tilesCleared) {
+            let current = this.state.currentTile
+            console.log('selected ' + current);
+            
+            function findTile() {
+                for (let i = 0; i < tiles.length; i++) {
+                    if (tiles[i].key === current) {
+                        return tiles[i];
+                    }
+                }
+            }
 
-            let key = letter + letters[letter].amount.toString();
-            console.log(key);
+            let index = tiles.indexOf(findTile())
 
-            this.updateStats(letter);
+            if (index > -1) {
+                tiles.splice(index, 1);
+            }
 
-            return (
-                <div className="tileCell rackCell" key={key}>
-                    <Tile letter={letter} />
-                </div>
-            )
+        } else if (this.state.tilesCleared) {
+            tiles = tiles.splice(0, tiles.length);
         }
     }
+    
 
     render () {
 
-        let playerTiles = [];
-
-        for (var i = 0; i < this.state.numberOfTiles; i += 1) {
-            playerTiles.push(this.drawTile());
-        };
+        this.updateRack(this.props.tiles);
 
         return (
             <div>
+            <p>{totalLetters()}</p>
                 <h3>Your tiles:</h3>
-                <div style={rackStyle}>{playerTiles}</div>
+                <div style={rackStyle}>{this.props.tiles}</div>
                 <button className="button" onClick={this.onDraw}>DRAW</button>
+                <button className="button" onClick={this.onClear}>CLEAR</button>
             </div>
         )
     }
 
     onDraw = () => {
 
-        if (this.state.numberOfTiles < 7 && this.state.numberOfTiles > 0) {
-            this.setState({
-                numberOfTiles: this.state.numberOfTiles + 1
-            });
-        } else if (this.state.numberOfTiles === 0) {
-            this.setState({
-                numberOfTiles: this.state.numberOfTiles + 7
-            });
-        } else if (this.state.numberOfTiles === 7) {
-            alert("You have the maximum amount of tiles on rack.")
+        if (totalLetters() === 0) {
+            alert('Out of tiles')
+            return;
         }
 
+        this.setState({
+                tilesCleared: false
+            })
 
+        if (this.state.numberOfTiles < 7 && totalLetters() >= 7) {
+            this.setState({
+                numberOfTiles: 7
+            });
+        } else if (totalLetters() < 7) {
+            this.setState({
+                numberOfTiles: totalLetters()
+            })
+        } else if (this.state.numberOfTiles === 7) {
+            alert("Your rack is full.")
+        }
 
+    }
+
+    onClear = () => {
+        this.setState({
+            numberOfTiles: 0,
+            tilesCleared: true
+        })
+    }
+
+    onSelect = (tile) => {
+        this.setState({
+            numberOfTiles: this.state.numberOfTiles - 1,
+            currentTile: tile,
+            tileDown: false
+        })
     }
 }
 
