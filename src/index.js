@@ -10,7 +10,7 @@ class App extends React.Component {
         const title = "Scrabble";
         return (
             <div>
-            <h1 className="status">{title}</h1>
+            <h1>{title}</h1>
             <div><Game /></div>         
             </div>
         );
