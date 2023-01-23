@@ -14,9 +14,14 @@ const divStyle = {
     margin: "auto"
 }
 
-
-
 class Bag extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            total: 0
+        }
+    }
 
     createTiles() {
         return (
@@ -31,13 +36,34 @@ class Bag extends React.Component {
         )
     }
 
+    totalLetters() {
+        function setTotal() {
+            let total = 0;
+            Object.keys(letters).map((key) => {
+                return total += letters[key].amount;
+            });
+            return total;
+        }
+
+        this.setState({
+            total: setTotal()
+    })
+    }
+
+    componentDidMount() {
+        this.totalID = setInterval(
+            () => this.totalLetters(),
+            0
+        );
+    }
+
     render() {
 
         return (
             <div style={divStyle}>
-            <h3>Tiles in the bag:</h3>
+            <h3>Tiles in the bag: </h3>
                 {this.createTiles()}
-                <div>Total: </div>
+                <div>Total: {this.state.total}</div>
             </div>
         )
     }
