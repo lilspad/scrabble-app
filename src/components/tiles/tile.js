@@ -19,14 +19,18 @@ class Tile extends React.Component {
   }
 
   createTile() {
-    return (
-      <div className="tile">
-        {this.state.letter}
-        <div className="points">
-          {this.state.points}
+    if (this.state.letter === 'blank') {
+      return <div className="tile" ></div>
+    } else {
+      return (
+        <div className="tile">
+          {this.state.letter}
+          <div className="points">
+            {this.state.points}
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 
   updateStats() {
