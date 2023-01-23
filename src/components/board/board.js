@@ -3,12 +3,13 @@ import Row from './row.js'
 
 const boardStyle = {
     width: "fit-content", 
-    height: "100%",
+    height: "fit-content",
     borderSpacing: "0px",
-    padding: "1.5px", 
+    padding: "1px", 
     border: "3px solid black",
     backgroundColor: "#b85039",
-    boxSizing: "content-box"
+    boxSizing: "content-box",
+    margin: "2%"
 }
 
 const row1 = [4,0,0,0,1,0,0,4,0,0,1,0,0,0,4];
@@ -29,13 +30,14 @@ class Board extends React.Component {
     createBoard(matrix) {
         const boardPattern = matrix.map((pattern, index) => {
             return (
-            <tbody key={index}><Row row={pattern}/></tbody>
+            <tbody key={index}><Row row={pattern} selectedTile={this.props.selectedTile} /></tbody>
         )
         })
         return boardPattern;
     }
 
     render() {
+
         return (
             <div>
             <table style={boardStyle}>

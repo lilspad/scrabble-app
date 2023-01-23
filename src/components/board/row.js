@@ -4,22 +4,26 @@ import Cell from './cell.js'
 const cellTypes={
     0: {
         "display": "",
-        color: "#E3EAC8"
+        color: "#d9e3b1"
     },
     1: {
         "display": "DL",
+        multiplier: 2,
         color: "#7dbdab"
     },
     2: {
         "display": "TL",
+        multiplier: 3,
         color: "#997da1"    
     },
     3: {
         "display": "DW",
+        multiplier: 2,
         color: "#c9823e"
     },
     4: {
         "display": "TW",
+        multiplier: 3,
         color: "#f0dd51"
     },
     5: {
@@ -33,9 +37,16 @@ class Row extends React.Component {
         
         const boardRow = row.map((num, index) => {
             const display = cellTypes[num].display;
+            const multiplier = cellTypes[num].multiplier;
             const color = cellTypes[num].color;
             return (
-                <Cell display={display} color={color} key={index}/>
+                <Cell 
+                    display={display}
+                    multiplier={multiplier}
+                    color={color}
+                    key={index}
+                    selectedTile={this.props.selectedTile}
+                />
             )
         })
         return boardRow;
@@ -43,7 +54,14 @@ class Row extends React.Component {
 
     render() {
         return (
-            <tr className="row">{this.createRow(this.props.row)}</tr>
+            <tr className="row" style={{
+                display: "flex", 
+                lineHeight: "40px",
+                justifyContent: "center",
+                alignItems: "center"
+            }}>
+                {this.createRow(this.props.row)}
+            </tr>
         )
     }
 }
