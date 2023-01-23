@@ -2,7 +2,7 @@ colours:
 
 background/dark sage: #5c7551
 
-empty cells/sage: #E3EAC8
+empty cells/sage: #d9e3b1
 DL/turqoise: #7dbdab
 TL/purple: #997da1
 DW/orange: #c9823e
