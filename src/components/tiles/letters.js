@@ -27,6 +27,7 @@ const letters = {
   Y: { points: 4, amount: 2 },
   Z: { points: 10, amount: 1 },
   "": { points: null, amount: 2}
+  
 } 
 
 export default letters;
