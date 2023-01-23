@@ -3,11 +3,12 @@ import Row from './row.js'
 
 const boardStyle = {
     width: "fit-content", 
+    height: "100%",
     borderSpacing: "0px",
     padding: "1.5px", 
     border: "3px solid black",
     backgroundColor: "#b85039",
-    margin: "1%"
+    boxSizing: "content-box"
 }
 
 const row1 = [4,0,0,0,1,0,0,4,0,0,1,0,0,0,4];
