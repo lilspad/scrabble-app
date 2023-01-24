@@ -33,8 +33,8 @@ State has been and still is a learning curve for me. I'm still figuring out wher
  - move a selected tile around the board
  - drop and pick up tiles on the board
  - Turn blank into a chosen letter
-
-![Screen Recording 2023-01-24 at 11 55 47](https://user-images.githubusercontent.com/76661777/214286364-4905b312-79c0-4d87-93e2-306085240bb3.gif)
+ 
+ ![ezgif com-gif-maker](https://user-images.githubusercontent.com/76661777/214288966-17a839dc-29d7-44df-ad15-4056078d6dc0.gif)
 
 Development so far has been largely commited to the Rack component and managing tile selection.
 
