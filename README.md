@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# React App - Scrabble | *in progress*
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About
 
-## Available Scripts
+I took on this project to improve my React skills. After completing a codecademy course on React and some open source tutorials, I felt like I was missing something and needed to learn React first hand. 
 
-In the project directory, you can run:
+This is a classic Scrabble game as we all know and love it. 
 
-### `npm start`
+## Process
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Creating the components
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Having only just learnt React basics at the start of this project, creating the initial components was essentially a trial session for me. I had to really consider relationships between each game element and how to render them altogether as one big happy family. I quickly picked up on the mechanics and finally started to understand why I even needed state and what 'this' actually means. It felt like a real noob moment. 
 
-### `npm test`
+Once I rendered all the components I spent a lot of time in style.css, as I always do. I wanted to achieve a warm and peaceful look for the page to accommodate the player without unnecessary distraction and build a thought-friendly environment. 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Managing state
 
-### `npm run build`
+State has been and still is a learning curve for me. I'm still figuring out where it is more efficient to set state and where I should just change the components props. This project is helping me get familiar with the component lifecycle and while building this app I inevitably come across syntax I didn't understand before, but now makes so much more sense as it offers solutions to my issues. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Where it is
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+18th Jan | Initial display
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Components are set up, no interactivity
+- Initial styling complete
 
-### `npm run eject`
+24th Jan | Player is able to:
+ 
+ - draw up to 7 tiles
+ - select and return tiles on the rack
+ - swap all 7 tiles (only once)
+ - move a selected tile around the board
+ - drop and pick up tiles on the board
+ - Turn blank into a chosen letter
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![Screen Recording 2023-01-24 at 11 55 47](https://user-images.githubusercontent.com/76661777/214286364-4905b312-79c0-4d87-93e2-306085240bb3.gif)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Development so far has been largely commited to the Rack component and managing tile selection.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Where it's going
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+To end up with a fully functioning Scrabble app, I will need to:
 
-## Learn More
+In general
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Create a welcome screen and gameplay guide, let players enter their name
+- Manage turns
+- Players rack should only be visible to the player; 
+  - Hosting this game on one screen only, I'm planning to alert the player to pass the screen to their opponent at the end of each turn, then display the current players rack. 
+  - In the future I will definitely want to try and create a lobby for players to join and play on their own screens, but right now that feels very challenging and I want to complete the game first
+- Update score at the end of each turn
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+On the board
 
-### Code Splitting
+- Define relationships between all the cells, in order to make sure all the tiles are in a word, horizontally or vertically and touch another word
+- Define a word so that DW and TW can update score accordingly
+- Import data so that every word can be chcecked against a library of words
+- Check that the first word on board touches centre cell
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+On the rack
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Allow player to change the order of their tiles
+- 'Play' button that will check the players word is valid, and end the turn
+- Possibly a 'Help' button, I don't really know how difficult it would to intorudce an AI that could check all the tiles and combine them into a word, but I will defintely give it a go once the rest of the game is complete
