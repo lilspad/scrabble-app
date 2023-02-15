@@ -7,6 +7,7 @@ To do:
     - All words thereafter have to be attached to another word
 - Execute checks on PLAY
 - Let player switch order of tiles on rack
+- Tiles with two digit points are only displaying the first digit on borad (key[1] needs to be be key[1, 2] perhaps?)
 
 colours:
 
