@@ -1,5 +1,6 @@
 import React from "react";
 
+let className = "tile";
 class Cell extends React.Component {
 
     constructor(props) {
@@ -25,7 +26,8 @@ class Cell extends React.Component {
     render() {
         return (
             <td 
-                className="tile" 
+                className={className} 
+                id={this.props.cellKey}
                 style={this.state.style}
                 onMouseOver={() => {this.onIn()}} 
                 onMouseOut={() => {this.onOut()}} 
@@ -99,16 +101,16 @@ class Cell extends React.Component {
                 display: this.props.display,
                 secondary: this.props.secondary,
                 style: {
-                minWidth: "40px",
-                height: "40px",
-                textAlign: "center",
-                verticalAlign: "middle",
-                border: "black solid 1px",
-                backgroundColor: this.props.color,
-                boxShadow: "0 0 0"
-            }
+                    minWidth: "40px",
+                    height: "40px",
+                    textAlign: "center",
+                    verticalAlign: "middle",
+                    border: "black solid 1px",
+                    backgroundColor: this.props.color,
+                    boxShadow: "0 0 0"
+                }
             })
-
+            
             console.log('tile up')
             return;
         } else if (this.props.selectedTile.isDown) {
