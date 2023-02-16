@@ -38,6 +38,15 @@ State has been and still is a learning curve for me. I'm still figuring out wher
 
 Development so far has been largely commited to the Rack component and managing tile selection.
 
+
+16th Feb | Placement Checks
+
+ - in order to play their turn, a player has to:
+ - place a tile in the center of the board
+ - have all tiles on the board connected to *another tile* (either by row or column)
+
+Also named the app Wildwood, inspired by a randomly generated heroku app name :)
+
 ## Where it's going
 
 To end up with a fully functioning Scrabble app, I will need to:
@@ -53,10 +62,11 @@ In general
 
 On the board
 
-- Define relationships between all the cells, in order to make sure all the tiles are in a word, horizontally or vertically and touch another word
+✔ Define relationships between all the cells, in order to make sure all the tiles are in a word, horizontally or vertically and touch another word
 - Define a word so that DW and TW can update score accordingly
 - Import data so that every word can be chcecked against a library of words
-- Check that the first word on board touches centre cell
+
+✔ Check that the first ~~word~~ tile on board touches centre cell
 
 On the rack
 
