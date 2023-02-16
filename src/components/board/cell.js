@@ -110,7 +110,7 @@ class Cell extends React.Component {
                     boxShadow: "0 0 0"
                 }
             })
-            
+            className -= ' tileOn';
             console.log('tile up')
             return;
         } else if (this.props.selectedTile.isDown) {
@@ -129,6 +129,8 @@ class Cell extends React.Component {
             },
             tileOn: true
         })
+
+        className += ' tileOn';
 
         this.props.selectedTile.isDown = true;
         this.props.selectedTile.tileKey = 'cleared';

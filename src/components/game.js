@@ -11,6 +11,8 @@ const none = {
     display: "none"
 }
 
+let turn = 0;
+
 class Player extends React.Component {
     constructor(props) {
         super(props);
@@ -57,11 +59,22 @@ class Player extends React.Component {
 
 class Game extends React.Component {
 
+    checkPlacement() {
+        if (turn === 0) {
+            let center = document.getElementById('H7');
+            if (!center.classList.contains('tileOn')) {
+                alert('One of the tiles need to be in the center.');
+            } else {
+                alert('next turn');
+            }
+        }
+    }
+
 
     render() {
 
-        let player1 = "Lily";
-        let player2 = "Ali"
+        let player1 = "Player1";
+        let player2 = "Player2";
 
         let player1Turn = true;
         let player2Turn = false;
@@ -108,7 +121,8 @@ class Game extends React.Component {
                             tiles={player2Tiles}
                             selectedTile={selectedTile} 
                         />
-                    </div>
+                        <button className="button" onClick={() => this.checkPlacement()}> PLAY </button>
+                    </div>  
                 </div>
             </div>
         );
