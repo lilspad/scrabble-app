@@ -4,7 +4,8 @@ To do:
 - Fix bug where after removing a tile off a cell, that cell no longer accepts tiles
 - Define rules for placement: 
     ✔ First word has to touch center
-    - All words thereafter have to be attached to another word
+    ✔ (ish) All words thereafter have to be attached to another word
+    - ^all tiles need to have a neighbour, but words unattached to main still pass FIX THIS
 - Execute checks on PLAY
 - Let player switch order of tiles on rack
 ✔ Tiles with two digit points are only displaying the first digit on borad (key[1] needs to be be key[1, 2] perhaps?)
