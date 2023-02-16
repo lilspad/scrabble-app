@@ -1,6 +1,6 @@
 import React from "react";
+import letters from "../tiles/letters.js";
 
-let className = "tile";
 class Cell extends React.Component {
 
     constructor(props) {
@@ -19,14 +19,15 @@ class Cell extends React.Component {
                 boxShadow: "0 0 0"
             },
             selectedTile: this.props.selectedTile,
-            tileOn: false
+            tileOn: false,
+            className: 'tile '
         }
     }
 
     render() {
         return (
             <td 
-                className={className} 
+                className={this.state.className} 
                 id={this.props.cellKey}
                 style={this.state.style}
                 onMouseOver={() => {this.onIn()}} 
@@ -47,7 +48,7 @@ class Cell extends React.Component {
 
         this.setState({
             display: this.state.selectedTile.tileKey[0],
-            secondary: this.state.selectedTile.tileKey[1],
+            secondary: letters[this.state.selectedTile.tileKey[0]].points,
             style: {
                 border: "black solid 1px",
                 minWidth: "40px",
@@ -83,11 +84,12 @@ class Cell extends React.Component {
     onClick = () => {
 
         let points;
+        let tilePoints = letters[this.state.selectedTile.tileKey[0]].points;
 
         if (this.state.multiplier) {
-            points = this.state.selectedTile.tileKey[1] * this.state.multiplier;
+            points = tilePoints * this.state.multiplier;
         } else {
-            points = this.state.selectedTile.tileKey[1];
+            points = tilePoints;
         }
 
 
@@ -110,7 +112,7 @@ class Cell extends React.Component {
                     boxShadow: "0 0 0"
                 }
             })
-            className -= ' tileOn';
+
             console.log('tile up')
             return;
         } else if (this.props.selectedTile.isDown) {
@@ -127,11 +129,11 @@ class Cell extends React.Component {
                 height: "40px",
                 zIndex: "5"
             },
-            tileOn: true
+            tileOn: true,
+            className: 'tile tileOn'
         })
 
-        className += ' tileOn';
-
+        console.log('tile on')
         this.props.selectedTile.isDown = true;
         this.props.selectedTile.tileKey = 'cleared';
 
