@@ -72,28 +72,48 @@ class Game extends React.Component {
         }
 
         let tilesOn = document.getElementsByClassName('tileOn');
+        const rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O'];
 
         for (let i = 0; i < tilesOn.length; i ++) {
 
             let tile = tilesOn[i];
-            let column = tile.id.replace(tile.id[0], '');
-            let left = column - 1;
-            let right = Math.floor(column) + 1;
 
-            const neighbourId = column => {
-                return tile.id[0] + column;
+            let tileColumn = tile.id.replace(tile.id[0], '');
+            let tileRow = tile.id[0];
+
+            let tileRowIndex = rows.indexOf(tile.id[0]);
+
+            let left = tileColumn - 1;
+            let right = Math.floor(tileColumn) + 1;
+
+            let top = rows[tileRowIndex - 1];
+            let bottom = rows[tileRowIndex + 1];
+
+
+            const neighbourId = (row, column) => {
+                return row + column;
             }
 
-            let leftNeighbour = document.getElementById(neighbourId(left));
-            let rightNeighbour = document.getElementById(neighbourId(right));
+            let leftNeighbour = document.getElementById(neighbourId(tileRow, left));
+            let rightNeighbour = document.getElementById(neighbourId(tileRow, right));
+            let topNeighbour = document.getElementById(neighbourId(top, tileColumn));
+            let bottomNeighbour = document.getElementById(neighbourId(bottom, tileColumn));
 
-            if (leftNeighbour.classList.contains('tileOn') || rightNeighbour.classList.contains('tileOn') ) {
+
+
+            if (leftNeighbour.classList.contains('tileOn') || rightNeighbour.classList.contains('tileOn')) {
                 console.log(tile.id + 'has horizontal neighbours');
+            } else if (topNeighbour.classList.contains('tileOn') || bottomNeighbour.classList.contains('tileOn')) {
+                console.log(tile.id + ' has vertical neighbours');
             } else {
                 alert('Each tile on the board has to be part of a word')
                 console.log(tile.id + 'is lonely');
                 return;
             }
+
+            
+
+            
 
             
         }
