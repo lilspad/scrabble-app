@@ -60,14 +60,44 @@ class Player extends React.Component {
 class Game extends React.Component {
 
     checkPlacement() {
+        console.log('checking placement of tiles on board')
+
+        let center = document.getElementById('H7');
+
         if (turn === 0) {
-            let center = document.getElementById('H7');
             if (!center.classList.contains('tileOn')) {
                 alert('One of the tiles need to be in the center.');
-            } else {
-                alert('next turn');
+                return;
             }
         }
+
+        let tilesOn = document.getElementsByClassName('tileOn');
+
+        for (let i = 0; i < tilesOn.length; i ++) {
+
+            let tile = tilesOn[i];
+            let column = tile.id.replace(tile.id[0], '');
+            let left = column - 1;
+            let right = Math.floor(column) + 1;
+
+            const neighbourId = column => {
+                return tile.id[0] + column;
+            }
+
+            let leftNeighbour = document.getElementById(neighbourId(left));
+            let rightNeighbour = document.getElementById(neighbourId(right));
+
+            if (leftNeighbour.classList.contains('tileOn') || rightNeighbour.classList.contains('tileOn') ) {
+                console.log(tile.id + 'has horizontal neighbours');
+            } else {
+                alert('Each tile on the board has to be part of a word')
+                console.log(tile.id + 'is lonely');
+                return;
+            }
+
+            
+        }
+
     }
 
 

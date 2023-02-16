@@ -46,9 +46,17 @@ class Cell extends React.Component {
             return;
         } 
 
+        let points;
+
+        if (this.state.selectedTile.tileKey.length === 1) {
+            points = '';
+        } else {
+            points = letters[this.state.selectedTile.tileKey[0]].points;
+        }
+
         this.setState({
             display: this.state.selectedTile.tileKey[0],
-            secondary: letters[this.state.selectedTile.tileKey[0]].points,
+            secondary: points,
             style: {
                 border: "black solid 1px",
                 minWidth: "40px",
@@ -84,13 +92,6 @@ class Cell extends React.Component {
     onClick = () => {
 
         let points;
-        let tilePoints = letters[this.state.selectedTile.tileKey[0]].points;
-
-        if (this.state.multiplier) {
-            points = tilePoints * this.state.multiplier;
-        } else {
-            points = tilePoints;
-        }
 
 
         if (this.state.tileOn) {
@@ -118,6 +119,16 @@ class Cell extends React.Component {
         } else if (this.props.selectedTile.isDown) {
             console.log('tile down')
             return;
+        }
+
+        let tilePoints = letters[this.state.selectedTile.tileKey[0]].points;
+
+        if (this.state.selectedTile.tileKey.length === 1) {
+            points = '';
+        } else if (this.state.multiplier && this.state.selectedTile.tileKey.length > 1) {
+            points = tilePoints * this.state.multiplier;
+        } else {
+            points = tilePoints;
         }
 
         this.setState({
