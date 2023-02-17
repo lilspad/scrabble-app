@@ -11,74 +11,33 @@ const none = {
     display: "none"
 }
 
-let turn = 0;
-
-class Player extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: this.props.name,
-            playerID: this.props.playerID,
-            turn: this.props.turn,
-            tiles: this.props.tiles,
-            selectedTile: this.props.selectedTile
-        }
-    }
-
-    isTurn() {
-        if (this.state.turn === this.state.playerID) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    updatePlayerPage() {
-        if (this.isTurn()) {
-            return display;
-        } else {
-            return none;
-        }
-    }
-
-    render() {
-
-        return (
-            <div style={this.updatePlayerPage()}>
-                <h3>{this.state.name}'s tiles: </h3>
-                <Rack tiles={this.state.tiles} selectedTile={this.state.selectedTile}/>
-            </div>
-        )
-
-    }
-}
-
 class Game extends React.Component {
     constructor() {
         super();
         this.state = {
+            turn: 0,
             playerName1: '',
             playerName2: '',
-            turn: '1'
+            playerTurn: '1'
         }
-    this.onInputchange = this.onInputchange.bind(this);
-  }
+        this.onInputchange = this.onInputchange.bind(this);
+    }
 
     onInputchange(event) {
         this.setState({
             [event.target.name]: event.target.value
-    });
-  }
+        });
+    }
 
     checkPlacement() {
         console.log('checking placement of tiles on board')
 
         let center = document.getElementById('H7');
 
-        if (turn === 0) {
+        if (this.state.turn === 0) {
             if (!center.classList.contains('tileOn')) {
                 alert('One of the tiles need to be in the center.');
-                return;
+                return false;
             }
         }
 
@@ -113,12 +72,14 @@ class Game extends React.Component {
 
             if (leftNeighbour.classList.contains('tileOn') || rightNeighbour.classList.contains('tileOn')) {
                 console.log(tile.id + 'has horizontal neighbours');
+                return true;
             } else if (topNeighbour.classList.contains('tileOn') || bottomNeighbour.classList.contains('tileOn')) {
                 console.log(tile.id + ' has vertical neighbours');
+                return true;
             } else {
                 alert('Each tile on the board has to be part of a word')
                 console.log(tile.id + 'is lonely');
-                return;
+                return false;
             }
             
         }
@@ -162,23 +123,26 @@ class Game extends React.Component {
                         </div>
 
                         <Bag />
-
-                        <Player 
-                            name={this.state.playerName1}
-                            playerID='1'
-                            turn={this.state.turn}
-                            points={player1Score}
-                            tiles={player1Tiles}
-                            selectedTile={selectedTile} 
-                        />
-                        <Player 
-                            name={this.state.playerName2}
-                            playerID='2'
-                            turn={this.state.turn}
-                            points={player2Score}
-                            tiles={player2Tiles}
-                            selectedTile={selectedTile} 
-                        />
+                        <div id="player1" style={display}>
+                            <Player 
+                                name={this.state.playerName1}
+                                playerID='1'
+                                turn={this.state.playerTurn}
+                                points={player1Score}
+                                tiles={player1Tiles}
+                                selectedTile={selectedTile}
+                            />
+                        </div>
+                        <div id="player2" style={none} >
+                            <Player 
+                                name={this.state.playerName2}
+                                playerID='2'
+                                turn={this.state.playerTurn}
+                                points={player2Score}
+                                tiles={player2Tiles}
+                                selectedTile={selectedTile} 
+                            />
+                        </div>
                         <button className="button" onClick={this.play}> PLAY </button>
                     </div>  
                 </div>
@@ -198,7 +162,62 @@ class Game extends React.Component {
         }
         
     }
+
+    play = () => {
+
+        if (!this.checkPlacement()) {
+            return;
+        }
+
+        const changeTurn = () => {
+            if (this.state.playerTurn === '1') {
+                return '2';
+            } else {
+                return '1';
+            }
+        }
+
+        this.setState({
+            turn: this.state.turn + 1,
+            playerTurn: changeTurn()
+        })
+        
+        const changePlayer = () => {
+            if (this.state.playerTurn === '1') {
+                document.getElementById('player1').style = display;
+                document.getElementById('player2').style = none;
+            } else if (this.state.playerTurn === '2') {
+                document.getElementById('player2').style = display;
+                document.getElementById('player1').style = none;
+            }
+        }
+
+        changePlayer();
+    }
     
+}
+
+class Player extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: this.props.name,
+            playerID: this.props.playerID,
+            tiles: this.props.tiles,
+            selectedTile: this.props.selectedTile
+        }
+    }
+
+    render() {
+
+        return (
+            <div>
+                <h3>{this.state.name}'s tiles: ({this.state.playerID})</h3>
+                <Rack tiles={this.state.tiles} selectedTile={this.state.selectedTile}/>
+            </div>
+        )
+
+    }
 }
 
 export default Game;
