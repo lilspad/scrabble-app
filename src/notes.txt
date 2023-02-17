@@ -23,6 +23,10 @@ center/red: #b85039
 
 tile: #faecc5
 
+possible word checks:
+
+- Dictionary API: https://dictionaryapi.dev/
+- check-if-word package: https://www.npmjs.com/package/check-if-word
 
 draggable:
 
