@@ -201,7 +201,7 @@ class Rack extends React.Component {
                     className="button" 
                     onClick={this.onDraw}
                 >
-                        DRAW
+                    DRAW
                 </button>
 
                 <button 
@@ -217,7 +217,7 @@ class Rack extends React.Component {
                     }} 
                     style={swapStyle}
                 >
-                        SWAP
+                    SWAP
                 </button>
 
             </div>

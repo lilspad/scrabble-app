@@ -114,10 +114,10 @@ class Cell extends React.Component {
                 }
             })
 
-            console.log('tile up')
+            console.log('tile up from cell')
             return;
         } else if (this.props.selectedTile.isDown) {
-            console.log('tile down')
+            console.log('tile is not up')
             return;
         }
 
@@ -144,7 +144,7 @@ class Cell extends React.Component {
             className: 'tile tileOn'
         })
 
-        console.log('tile on')
+        console.log('tile is put down on cell')
         this.props.selectedTile.isDown = true;
         this.props.selectedTile.tileKey = 'cleared';
 

@@ -110,6 +110,7 @@ class Row extends React.Component {
     }
 
     render() {
+
         return (
             <tr className="row" style={{
                 display: "flex", 
