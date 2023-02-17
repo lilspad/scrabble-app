@@ -6,14 +6,9 @@ import "./style.css"
 document.body.style = 'background: #5c7551; margin: 0';
 
 class App extends React.Component {
+
     render() {
-        const title = "Wildwood Scrabble";
-        return (
-            <div>
-            <h1>{title}</h1>
-            <div><Game /></div>         
-            </div>
-        );
+        return <Game />        
     }
 }
 

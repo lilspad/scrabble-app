@@ -18,30 +18,26 @@ class Player extends React.Component {
         super(props);
         this.state = {
             name: this.props.name,
+            playerID: this.props.playerID,
             turn: this.props.turn,
-            points: this.props.points,
             tiles: this.props.tiles,
             selectedTile: this.props.selectedTile
         }
     }
 
     isTurn() {
-        if (this.state.turn) {
-            return (
-                <h3>It's {this.state.name}'s turn!</h3>
-            )
+        if (this.state.turn === this.state.playerID) {
+            return true;
         } else {
-            return (
-                <h3>Wait for the other player</h3>
-            )
+            return false;
         }
     }
 
     updatePlayerPage() {
-        if (!this.state.turn) {
-            return none;
-        } else {
+        if (this.isTurn()) {
             return display;
+        } else {
+            return none;
         }
     }
 
@@ -49,7 +45,7 @@ class Player extends React.Component {
 
         return (
             <div style={this.updatePlayerPage()}>
-                {this.isTurn()}
+                <h3>{this.state.name}'s tiles: </h3>
                 <Rack tiles={this.state.tiles} selectedTile={this.state.selectedTile}/>
             </div>
         )
@@ -58,6 +54,21 @@ class Player extends React.Component {
 }
 
 class Game extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            playerName1: '',
+            playerName2: '',
+            turn: '1'
+        }
+    this.onInputchange = this.onInputchange.bind(this);
+  }
+
+    onInputchange(event) {
+        this.setState({
+            [event.target.name]: event.target.value
+    });
+  }
 
     checkPlacement() {
         console.log('checking placement of tiles on board')
@@ -100,7 +111,6 @@ class Game extends React.Component {
             let bottomNeighbour = document.getElementById(neighbourId(bottom, tileColumn));
 
 
-
             if (leftNeighbour.classList.contains('tileOn') || rightNeighbour.classList.contains('tileOn')) {
                 console.log(tile.id + 'has horizontal neighbours');
             } else if (topNeighbour.classList.contains('tileOn') || bottomNeighbour.classList.contains('tileOn')) {
@@ -110,24 +120,12 @@ class Game extends React.Component {
                 console.log(tile.id + 'is lonely');
                 return;
             }
-
-            
-
-            
-
             
         }
 
     }
 
-
     render() {
-
-        let player1 = "Player1";
-        let player2 = "Player2";
-
-        let player1Turn = true;
-        let player2Turn = false;
 
         let player1Score = 0;
         let player2Score = 0;
@@ -142,7 +140,15 @@ class Game extends React.Component {
 
         return (
             <div className="game">
-                <div className="div">
+                <h1>Wildwood Scrabble</h1>
+                <div id="start">
+                    <label htmlFor="playerName1">Player 1:</label>
+                    <input type='text' name="playerName1" value={this.state.playerName1} onChange={this.onInputchange}/>
+                    <label htmlFor="playerName2">Player 2:</label>
+                    <input type='text' name="playerName2" value={this.state.playerName2} onChange={this.onInputchange}/>
+                    <button className="button" onClick={this.start} >START</button>
+                </div>
+                <div id="game" style={none}>
 
                     <Board selectedTile={selectedTile}/>
 
@@ -151,32 +157,48 @@ class Game extends React.Component {
                         <h2>Score:</h2>
 
                         <div className="div score">
-                            <h3>{player1}: {player1Score}</h3>
-                            <h3>{player2}: {player2Score}</h3>
+                            <h3>{this.state.playerName1}: {player1Score}</h3>
+                            <h3>{this.state.playerName2}: {player2Score}</h3>
                         </div>
 
                         <Bag />
 
                         <Player 
-                            name={player1}
-                            turn={player1Turn}
+                            name={this.state.playerName1}
+                            playerID='1'
+                            turn={this.state.turn}
                             points={player1Score}
                             tiles={player1Tiles}
                             selectedTile={selectedTile} 
                         />
                         <Player 
-                            name={player2}
-                            turn={player2Turn}
+                            name={this.state.playerName2}
+                            playerID='2'
+                            turn={this.state.turn}
                             points={player2Score}
                             tiles={player2Tiles}
                             selectedTile={selectedTile} 
                         />
-                        <button className="button" onClick={() => this.checkPlacement()}> PLAY </button>
+                        <button className="button" onClick={this.play}> PLAY </button>
                     </div>  
                 </div>
             </div>
         );
     }
+
+    start = () => {
+
+        let test = true;
+
+        if (/*this.state.playerName1 && this.state.playerName2*/ test) {
+            document.getElementById('start').style.display = 'none';
+            document.getElementById('game').style.display = 'flex';
+        } else {
+            alert('Please enter player names.')
+        }
+        
+    }
+    
 }
 
 export default Game;
