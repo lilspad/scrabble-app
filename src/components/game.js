@@ -18,7 +18,11 @@ class Game extends React.Component {
             turn: 0,
             playerName1: '',
             playerName2: '',
-            playerTurn: '1'
+            playerTurn: '1',
+            selectedTile: {
+                tileKey: 'none',
+                isDown: true
+            }
         }
         this.onInputchange = this.onInputchange.bind(this);
     }
@@ -94,11 +98,6 @@ class Game extends React.Component {
         let player1Tiles = [];
         let player2Tiles = [];
 
-        let selectedTile = {
-            tileKey: 'none',
-            isDown: true
-        };
-
         return (
             <div className="game">
                 <h1>Wildwood Scrabble</h1>
@@ -111,7 +110,7 @@ class Game extends React.Component {
                 </div>
                 <div id="game" style={none}>
 
-                    <Board selectedTile={selectedTile}/>
+                    <Board selectedTile={this.state.selectedTile}/>
 
                     <div className="stats">
 
@@ -130,7 +129,7 @@ class Game extends React.Component {
                                 turn={this.state.playerTurn}
                                 points={player1Score}
                                 tiles={player1Tiles}
-                                selectedTile={selectedTile}
+                                selectedTile={this.state.selectedTile}
                             />
                         </div>
                         <div id="player2" style={none} >
@@ -140,7 +139,7 @@ class Game extends React.Component {
                                 turn={this.state.playerTurn}
                                 points={player2Score}
                                 tiles={player2Tiles}
-                                selectedTile={selectedTile} 
+                                selectedTile={this.state.selectedTile} 
                             />
                         </div>
                         <button className="button" onClick={this.play}> PLAY </button>
@@ -201,8 +200,6 @@ class Player extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: this.props.name,
-            playerID: this.props.playerID,
             tiles: this.props.tiles,
             selectedTile: this.props.selectedTile
         }
@@ -212,7 +209,7 @@ class Player extends React.Component {
 
         return (
             <div>
-                <h3>{this.state.name}'s tiles: ({this.state.playerID})</h3>
+                <h3>{this.props.name}'s tiles: </h3>
                 <Rack tiles={this.state.tiles} selectedTile={this.state.selectedTile}/>
             </div>
         )
