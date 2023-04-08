@@ -101,14 +101,14 @@ class Game extends React.Component {
         return (
             <div className="game">
                 <h1>Wildwood Scrabble</h1>
-                <div id="start">
+                <div id="start" style={none}>
                     <label htmlFor="playerName1">Player 1:</label>
                     <input type='text' name="playerName1" value={this.state.playerName1} onChange={this.onInputchange}/>
                     <label htmlFor="playerName2">Player 2:</label>
                     <input type='text' name="playerName2" value={this.state.playerName2} onChange={this.onInputchange}/>
                     <button className="button" onClick={this.start} >START</button>
                 </div>
-                <div id="game" style={none}>
+                <div id="game" /*style={none}*/>
 
                     <Board selectedTile={this.state.selectedTile}/>
 
