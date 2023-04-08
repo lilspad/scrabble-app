@@ -16,8 +16,8 @@ class Game extends React.Component {
         super();
         this.state = {
             turn: 0,
-            playerName1: '',
-            playerName2: '',
+            playerName1: 'Player1',
+            playerName2: 'Player2',
             playerTurn: '1',
             selectedTile: {
                 tileKey: 'none',
