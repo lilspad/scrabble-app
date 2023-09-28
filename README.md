@@ -1,4 +1,4 @@
-# React App - Scrabble | *Archive*
+# React App - Scrabble | *Unfinished/Archived*
 
 *This project is now archived. I bit more than I could chew and didn't have the skills to make something of this scale at the time I attempted it.*
 
